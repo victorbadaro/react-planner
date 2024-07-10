@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { ArrowRight, Calendar, MapPin, Settings2, X } from 'lucide-react';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { DateRange, DayPicker } from 'react-day-picker';
 import { Button } from '../../../components/button';
 
@@ -10,11 +10,13 @@ interface DestinationAndDateStepProps {
 	isGuestsInputOpen: boolean;
 	closeGuestsInput: () => void;
 	openGuestsInput: () => void;
+	setDestination: Dispatch<SetStateAction<string>>;
+	eventStartAndEndDates: DateRange | undefined;
+	setEventStartAndEndDates: Dispatch<SetStateAction<DateRange | undefined>>;
 }
 
-export function DestinationAndDateStep({ closeGuestsInput, isGuestsInputOpen, openGuestsInput }: DestinationAndDateStepProps) {
+export function DestinationAndDateStep({ closeGuestsInput, isGuestsInputOpen, openGuestsInput, setDestination, eventStartAndEndDates, setEventStartAndEndDates }: DestinationAndDateStepProps) {
 	const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-	const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>();
 
 	function openDatePicker() {
 		setIsDatePickerOpen(true);
@@ -32,7 +34,13 @@ export function DestinationAndDateStep({ closeGuestsInput, isGuestsInputOpen, op
 		<div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
 			<div className="flex items-center gap-2 flex-1">
 				<MapPin className="size-5 text-zinc-400" />
-				<input type="text" placeholder="Para onde você vai?" disabled={isGuestsInputOpen} className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1" />
+				<input
+					type="text"
+					placeholder="Para onde você vai?"
+					disabled={isGuestsInputOpen}
+					className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
+					onChange={event => setDestination(event.target.value)}
+				/>
 			</div>
 
 			<button onClick={openDatePicker} disabled={isGuestsInputOpen} className="flex items-center gap-2 text-left w-60">
