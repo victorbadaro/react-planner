@@ -1,4 +1,5 @@
 import { CircleCheck, CircleDashed, UserCog } from 'lucide-react';
+import { Button } from '../../components/button';
 
 export function Guests() {
 	return (
@@ -25,10 +26,10 @@ export function Guests() {
 				</div>
 			</div>
 
-			<button type="button" className="bg-zinc-800 w-full h-11 text-zinc-200 rounded-lg px-5 font-medium flex items-center justify-center gap-2 hover:bg-zinc-700">
+			<Button type="button" variant="secondary" size="full">
 				<UserCog className="size-5" />
 				Gerenciar convidados
-			</button>
+			</Button>
 		</div>
 	);
 }
